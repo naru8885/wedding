@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>박지현 &amp; 이현석</title>
+<meta property="og:title" content="박지현 & 이현석">
+<meta property="og:description" content="2026년 5월 23일 오후 2시 · 늘찬, 전남 고흥">
+<meta property="og:image" content="https://images.zola.com/fb3cce3a-0d25-4216-b0ea-35704c9dccda?h=1000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant:ital,wght@1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+/* ── BASE ── */
+body{
+  background:#FAFAF8;
+  color:#2C2C2C;
+  font-family:'Lato',sans-serif;
+  font-size:16px;
+  font-weight:300;
+  line-height:1.6;
+  overflow-x:hidden;
+  animation:pageIn .8s ease both;
+}
+@keyframes pageIn{from{opacity:0}to{opacity:1}}
+
+/* ── NAV ── */
+.nav-wrap{
+  position:sticky;top:0;z-index:500;
+  background:#FAFAF8;
+  border-bottom:1px solid #E5DED7;
+}
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:18px 20px 0;
+}
+.nav-name{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(18px,3vw,32px);
+  font-weight:400;
+  letter-spacing:10px;
+  color:#2C2C2C;
+  line-height:1.1;
+  margin-bottom:16px;
+  text-transform:uppercase;
+  flex:1;
+}
+/* 햄버거 버튼 (모바일) */
+.nav-hamburger{
+  display:none;
+  position:absolute;
+  right:20px;top:50%;
+  transform:translateY(-60%);
+  background:none;border:none;
+  cursor:pointer;
+  padding:6px;
+  flex-direction:column;
+  gap:5px;
+}
+.nav-hamburger span{
+  display:block;width:22px;height:1.5px;
+  background:#2C2C2C;
+  transition:transform .3s ease, opacity .3s ease;
+}
+/* 햄버거 열렸을 때 X 변환 */
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* 데스크탑 링크 바 */
+.nav-links{
+  display:flex;
+  justify-content:center;
+  overflow-x:auto;
+  scrollbar-width:none;
+  border-top:1px solid #E5DED7;
+  gap:0;
+}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  position:relative;
+  display:block;
+  padding:12px 20px;
+  font-size:10px;
+  letter-spacing:3px;
+  color:#5A5450;
+  text-decoration:none;
+  white-space:nowrap;
+  text-transform:uppercase;
+  font-family:'Lato',sans-serif;
+  font-weight:400;
+  transition:color .2s;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:20px;right:20px;
+  height:1px;
+  background:#2C2C2C;
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .3s ease;
+}
+.nav-links a:hover{color:#2C2C2C}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* 모바일 드롭다운 메뉴 */
+.nav-drawer{
+  display:none;
+  flex-direction:column;
+  background:#FAFAF8;
+  border-top:1px solid #E5DED7;
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .35s ease;
+}
+.nav-drawer.open{max-height:400px}
+.nav-drawer a{
+  display:block;
+  padding:16px 28px;
+  font-size:11px;
+  letter-spacing:4px;
+  color:#5A5450;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Lato',sans-serif;
+  font-weight:400;
+  border-bottom:1px solid #F0EBE6;
+  transition:background .15s,color .15s;
+}
+.nav-drawer a:last-child{border-bottom:none}
+.nav-drawer a:hover{background:#F5F0EB;color:#2C2C2C}
+
+/* 반응형 분기 */
+@media(max-width:767px){
+  .nav-hamburger{display:flex}
+  .nav-links{display:none}
+  .nav-drawer{display:flex}
+  .nav-name{margin-bottom:18px}
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#1C1A18;
+}
+@media(max-width:767px){.hero{aspect-ratio:3/4}}
+
+/* 3-image crossfade: each shows ~7s, total 21s */
+@keyframes slide3{
+  0%    {opacity:0;transform:scale(1.06)}
+  5%    {opacity:1;transform:scale(1.04)}
+  30%   {opacity:1;transform:scale(1.01)}
+  35%   {opacity:0;transform:scale(1.00)}
+  100%  {opacity:0;transform:scale(1.06)}
+}
+.hero-slide{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0;
+  animation:slide3 21s ease-in-out infinite;
+  pointer-events:none;
+}
+.hero-slide:nth-child(1){animation-delay:0s}
+.hero-slide:nth-child(2){animation-delay:7s}
+.hero-slide:nth-child(3){animation-delay:14s}
+
+
+/* ── HOME SECTION ── */
+.home{
+  max-width:900px;margin:0 auto;
+  padding:80px 32px 60px;
+  text-align:center;
+}
+@media(max-width:767px){.home{padding:50px 24px 40px}}
+
+.home-eyebrow{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#9A8E83;
+  margin-bottom:28px;
+}
+.home-names{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(42px,7vw,72px);
+  font-weight:300;
+  letter-spacing:4px;
+  line-height:1.1;
+  color:#2C2C2C;
+  margin-bottom:6px;
+}
+.home-names .amp{
+  font-style:italic;
+  font-size:.7em;
+  opacity:.7;
+}
+.home-date{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(16px,2vw,20px);
+  font-weight:400;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#5A5450;
+  margin-bottom:4px;
+  margin-top:24px;
+}
+.home-loc{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#9A8E83;
+  text-transform:uppercase;
+  margin-bottom:44px;
+}
+
+
+/* ── RSVP BUTTON ── */
+.btn-rsvp{
+  display:inline-block;
+  border:1px solid #2C2C2C;
+  color:#2C2C2C;
+  font-size:10px;
+  letter-spacing:4px;
+  padding:14px 44px;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-family:'Lato',sans-serif;
+  font-weight:400;
+  transition:background .25s,color .25s;
+}
+.btn-rsvp:hover{background:#2C2C2C;color:#FAFAF8}
+
+/* ── ORNAMENT DIVIDER ── */
+.ornament{
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;
+  padding:20px 0;
+  margin:0 auto;
+  max-width:300px;
+}
+.ornament-line{flex:1;height:1px;background:#E5DED7}
+.ornament-icon{
+  font-family:'Cormorant',serif;
+  font-style:italic;
+  font-size:22px;
+  color:#C9BFB5;
+  line-height:1;
+  user-select:none;
+}
+
+/* ── WELCOME SECTION ── */
+.welcome{
+  max-width:900px;margin:0 auto;
+  padding:60px 32px;
+  text-align:center;
+}
+@media(max-width:767px){.welcome{padding:40px 24px}}
+
+.sec-label{
+  font-family:'Lato',sans-serif;
+  font-size:9px;
+  font-weight:400;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#9A8E83;
+  margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,42px);
+  font-weight:300;
+  letter-spacing:6px;
+  text-transform:uppercase;
+  color:#2C2C2C;
+  margin-bottom:36px;
+}
+
+/* welcome photo */
+.welcome-photo{
+  width:100%;
+  max-width:480px;
+  margin:0 auto 36px;
+  overflow:hidden;
+}
+.welcome-photo img{
+  width:100%;display:block;
+  transition:transform .8s ease;
+}
+.welcome-photo:hover img{transform:scale(1.04)}
+
+.welcome-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(17px,2vw,21px);
+  font-weight:400;
+  line-height:2;
+  color:#4A4540;
+  white-space:pre-line;
+  max-width:600px;
+  margin:0 auto;
+}
+
+/* ── FULL WIDTH BANNER ── */
+.banner{
+  width:100%;overflow:hidden;
+  aspect-ratio:3/1;
+  position:relative;
+}
+@media(max-width:767px){.banner{aspect-ratio:4/3}}
+.banner img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  transition:transform .8s ease;
+}
+.banner:hover img{transform:scale(1.03)}
+
+/* ── SCHEDULE SECTION ── */
+.schedule{
+  max-width:900px;margin:0 auto;
+  padding:70px 32px;
+}
+@media(max-width:767px){.schedule{padding:50px 24px}}
+.schedule .sec-title{text-align:center;margin-bottom:50px}
+
+.event-item{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:0 48px;
+  border-top:1px solid #E5DED7;
+  padding:36px 0;
+}
+.event-item:last-child{border-bottom:1px solid #E5DED7}
+@media(max-width:600px){
+  .event-item{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+}
+.event-left-col{
+  font-family:'Cormorant Garamond',serif;
+}
+.event-left-col h3{
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#9A8E83;
+  font-family:'Lato',sans-serif;
+  margin-bottom:10px;
+}
+.event-left-col .time{
+  font-size:clamp(22px,3vw,30px);
+  font-weight:300;
+  color:#2C2C2C;
+  line-height:1.2;
+}
+.event-left-col .sub{
+  font-size:14px;
+  color:#7A706A;
+  margin-top:6px;
+  line-height:1.6;
+  font-family:'Lato',sans-serif;
+  font-weight:300;
+}
+.event-right-col{
+  font-size:15px;
+  line-height:1.9;
+  color:#4A4540;
+  font-family:'Lato',sans-serif;
+  font-weight:300;
+  padding-top:4px;
+}
+
+/* ── MAP SECTION ── */
+.map-section{
+  max-width:900px;margin:0 auto;
+  padding:0 32px 70px;
+  text-align:center;
+}
+@media(max-width:767px){.map-section{padding:0 24px 50px}}
+.map-frame{
+  width:100%;height:340px;
+  border:none;
+  border:1px solid #E5DED7;
+  display:block;
+  margin-bottom:16px;
+}
+.map-link{
+  font-size:11px;
+  letter-spacing:3px;
+  color:#5A5450;
+  text-decoration:none;
+  text-transform:uppercase;
+  border-bottom:1px solid #C9BFB5;
+  padding-bottom:2px;
+  transition:opacity .2s;
+}
+.map-link:hover{opacity:.6}
+
+/* ── RSVP SECTION ── */
+.rsvp-sec{
+  max-width:900px;margin:0 auto;
+  padding:70px 32px;
+  text-align:center;
+}
+@media(max-width:767px){.rsvp-sec{padding:50px 24px}}
+.rsvp-sec .welcome-text{margin-bottom:36px}
+
+/* ── FOOTER IMAGE ── */
+.footer-img{
+  width:100%;overflow:hidden;
+  max-height:500px;
+}
+.footer-img img{
+  width:100%;display:block;
+  object-fit:cover;
+  max-height:500px;
+}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;
+  padding:36px 20px;
+  background:#FAFAF8;
+  border-top:1px solid #E5DED7;
+}
+.footer-names{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:22px;
+  font-weight:300;
+  color:#5A5450;
+  letter-spacing:3px;
+  margin-bottom:8px;
+}
+.footer-copy{
+  font-size:10px;
+  letter-spacing:3px;
+  color:#B0A89F;
+  text-transform:uppercase;
+}
+
+/* ── SCROLL REVEAL ── */
+@keyframes revealUp{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes revealFade{
+  from{opacity:0}
+  to{opacity:1}
+}
+.reveal{opacity:0}
+.reveal.on{animation:revealUp .9s cubic-bezier(.16,1,.3,1) both}
+.reveal-fade{opacity:0}
+.reveal-fade.on{animation:revealFade 1s ease both}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-name">박지현 &amp; 이현석</div>
+    <button class="nav-hamburger" id="navBtn" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- 데스크탑 링크 바 -->
+  <div class="nav-links">
+    <a href="#home">홈</a>
+    <a href="#welcome">초대</a>
+    <a href="#schedule">일정</a>
+    <a href="#location">오시는 길</a>
+    <a href="#rsvp">참석 확인</a>
+  </div>
+  <!-- 모바일 드롭다운 -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#home" class="nav-close">홈</a>
+    <a href="#welcome" class="nav-close">초대</a>
+    <a href="#schedule" class="nav-close">일정</a>
+    <a href="#location" class="nav-close">오시는 길</a>
+    <a href="#rsvp" class="nav-close">참석 확인</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <img class="hero-slide" src="https://images.zola.com/fb3cce3a-0d25-4216-b0ea-35704c9dccda?h=1000" alt="">
+  <img class="hero-slide" src="https://images.zola.com/374c2b34-6dae-4603-b49e-0e133d865a46?h=1000" alt="">
+  <img class="hero-slide" src="https://images.zola.com/d7abc7be-bde3-4fa1-9803-68c8d4aa2d88?h=1000" alt="">
+</div>
+
+<!-- ─── HOME ─── -->
+<section id="home" class="home">
+  <p class="home-eyebrow reveal">피로연에 초대합니다</p>
+  <h1 class="home-names reveal" style="animation-delay:.1s">
+    박지현<br>
+    <span class="amp">&amp;</span><br>
+    이현석
+  </h1>
+  <div class="home-date reveal" style="animation-delay:.2s">2026년 5월 23일</div>
+  <div class="home-loc reveal" style="animation-delay:.25s">전남 고흥 · 늘찬</div>
+
+  <a class="btn-rsvp reveal" style="animation-delay:.3s" href="#rsvp">참석 확인</a>
+</section>
+
+<!-- ─── ORNAMENT ─── -->
+<div class="ornament reveal-fade">
+  <span class="ornament-line"></span>
+  <span class="ornament-icon">❧</span>
+  <span class="ornament-line"></span>
+</div>
+
+<!-- ─── WELCOME ─── -->
+<section id="welcome" class="welcome">
+  <p class="sec-label reveal">Welcome</p>
+  <h2 class="sec-title reveal" style="animation-delay:.05s">초대합니다</h2>
+  <div class="welcome-photo reveal" style="animation-delay:.1s">
+    <img src="img/41d27493-0880-4770-817e-b9551c11ea93.jpg" alt="커플 사진" loading="lazy">
+  </div>
+  <p class="welcome-text reveal" style="animation-delay:.15s">저희 두 사람의 피로연에 오신 것을 환영합니다.
+사랑이 저희를 이 자리로 이끌었고,
+이 특별한 날을 함께해 주심에 진심으로 감사드립니다.
+
+귀한 걸음으로 축하해 주시면 더없이 행복하겠습니다.</p>
+</section>
+
+<!-- ─── BANNER ─── -->
+<div class="banner reveal-fade">
+  <img src="img/6febdc56-e4b2-4260-b891-0da442c64599.jpg" alt="" loading="lazy">
+</div>
+
+<!-- ─── SCHEDULE ─── -->
+<section id="schedule" class="schedule">
+  <p class="sec-label reveal" style="text-align:center">Schedule</p>
+  <h2 class="sec-title reveal" style="animation-delay:.05s">일정</h2>
+
+  <div class="event-item reveal" style="animation-delay:.1s">
+    <div class="event-left-col">
+      <h3>행사 일시</h3>
+      <div class="time">오후 2:00</div>
+      <div class="sub">2026년 5월 23일<br>토요일</div>
+    </div>
+    <div class="event-right-col">
+      피로연은 오후 2시에 시작됩니다.<br>
+      주차와 착석을 위해 조금 일찍 도착해 주시기 바랍니다.
+    </div>
+  </div>
+
+  <div class="event-item reveal" style="animation-delay:.15s">
+    <div class="event-left-col">
+      <h3>장소</h3>
+      <div class="time">늘찬</div>
+      <div class="sub">전남 고흥군 고흥읍<br>홍교길 8 1층</div>
+    </div>
+    <div class="event-right-col">
+      전남 고흥군 고흥읍 홍교길 8 1층에 위치합니다.<br>
+      주차 공간이 마련되어 있습니다.
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAP ─── -->
+<section id="location" class="map-section">
+  <iframe class="map-frame reveal"
+    src="https://maps.google.com/maps?q=%EC%A0%84%EB%9D%BC%EB%82%A8%EB%8F%84+%EA%B3%A0%ED%9D%A5%EA%B5%B0+%EA%B3%A0%ED%9D%A5%EC%9D%8D+%ED%99%8D%EA%B5%90%EA%B8%B8+8&t=m&z=16&output=embed&iwloc=near"
+    title="늘찬 위치" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <a class="map-link reveal" style="animation-delay:.1s"
+     href="https://naver.me/FsqfvXq5" target="_blank">
+    네이버 지도에서 열기 →
+  </a>
+</section>
+
+<!-- ─── RSVP ─── -->
+<section id="rsvp" class="rsvp-sec">
+  <p class="sec-label reveal">RSVP</p>
+  <h2 class="sec-title reveal" style="animation-delay:.05s">참석 확인</h2>
+  <p class="welcome-text reveal" style="animation-delay:.1s">
+참석 여부를 미리 알려주시면 감사하겠습니다.
+  </p>
+</section>
+
+<!-- ─── FOOTER IMG ─── -->
+<div class="footer-img reveal-fade">
+  <img src="img/4d36aa68-e026-4087-869b-e3d9901c635f.jpg" alt="" loading="lazy">
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-names">박지현 &amp; 이현석</div>
+  <div class="footer-copy">2026 · 05 · 23 · 늘찬</div>
+</footer>
+
+<script>
+// ── 햄버거 메뉴 ──
+(function(){
+  var btn=document.getElementById('navBtn');
+  var drawer=document.getElementById('navDrawer');
+  if(!btn||!drawer)return;
+  btn.addEventListener('click',function(){
+    var open=drawer.classList.toggle('open');
+    btn.classList.toggle('open',open);
+    btn.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');
+  });
+  // 메뉴 항목 클릭 시 닫기
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      drawer.classList.remove('open');
+      btn.classList.remove('open');
+    });
+  });
+})();
+
+// ── 스크롤 reveal ──
+(function(){
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('on');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal,.reveal-fade').forEach(function(el){
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
